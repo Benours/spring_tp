@@ -38,8 +38,8 @@ public class InsererMission implements CommandLineRunner {
 			
 			mission.setLibelle(libelle);
 			mission.setTauxJournalier(new BigDecimal(taux));
-			mission.setDateDebut(LocalDate.of(2019, 1, 1));
-			mission.setDateFin(LocalDate.of(2019, 3, 4));
+			mission.setDateDebut(LocalDate.of(2022, 1, 30));
+			mission.setDateFin(LocalDate.of(2022, 3, 4));
 
 			this.missionRepository.save(mission);
 			System.out.println("Ajouter mission ?(y/n)");

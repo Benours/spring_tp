@@ -24,6 +24,17 @@ public class Mission {
 	private LocalDate dateFin;
 
 	private BigDecimal tauxJournalier;
+	
+	public Mission() {};
+
+	/**
+	 * @param libelle
+	 * @param tauxJournalier
+	 */
+	public Mission(String libelle, BigDecimal tauxJournalier) {
+		this.libelle = libelle;
+		this.tauxJournalier = tauxJournalier;
+	}
 
 	// TODO Générer les getters/setters
 
