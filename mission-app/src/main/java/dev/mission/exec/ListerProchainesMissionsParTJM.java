@@ -1,6 +1,6 @@
 package dev.mission.exec;
 
-import java.sql.Date;
+import java.math.BigDecimal;
 import java.time.LocalDate;
 
 import org.springframework.boot.CommandLineRunner;
@@ -10,13 +10,14 @@ import org.springframework.stereotype.Controller;
 import dev.mission.service.MissionServiceDataJpa;
 
 @Controller
-@Profile("lister")
-public class ListerProchainesMissions implements CommandLineRunner {
+@Profile("listerTaux")
+public class ListerProchainesMissionsParTJM implements CommandLineRunner{
 
 
 	private MissionServiceDataJpa missionService;
+	private float taux = 10f;
 
-	public ListerProchainesMissions(MissionServiceDataJpa missionService) {
+	public ListerProchainesMissionsParTJM(MissionServiceDataJpa missionService) {
 		this.missionService = missionService;
 	}
 
@@ -25,7 +26,7 @@ public class ListerProchainesMissions implements CommandLineRunner {
 		// TODO Auto-generated method stub
 
 		System.out.println("----------");
-		this.missionService.rechercherParDate(LocalDate.now()).forEach(m -> System.out.println(m.getLibelle()));
+		this.missionService.rechercherParTaux(LocalDate.now(), taux).forEach(m -> System.out.println(m.getLibelle()));
 		System.out.println("----------");
 	}
 
