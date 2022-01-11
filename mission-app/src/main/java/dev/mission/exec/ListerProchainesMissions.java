@@ -1,10 +1,12 @@
 package dev.mission.exec;
 
+import java.sql.Date;
+
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Controller;
 
-import dev.service.MissionServiceDataJpa;
+import dev.mission.service.MissionServiceDataJpa;
 
 @Controller
 @Profile("lister")
@@ -12,6 +14,7 @@ public class ListerProchainesMissions implements CommandLineRunner {
 
 
 	private MissionServiceDataJpa missionService;
+	private Date today = new Date(2022, 1, 11);
 
 	public ListerProchainesMissions(MissionServiceDataJpa missionService) {
 		this.missionService = missionService;
@@ -22,7 +25,7 @@ public class ListerProchainesMissions implements CommandLineRunner {
 		// TODO Auto-generated method stub
 
 		System.out.println("----------");
-		this.missionService.listerMissions().forEach(m -> System.out.println(m.getLibelle()));
+		this.missionService.rechercherParDate(today).forEach(m -> System.out.println(m.getLibelle()));
 		System.out.println("----------");
 	}
 

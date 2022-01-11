@@ -1,5 +1,6 @@
 package dev.mission.repository;
 
+import java.sql.Date;
 import java.util.List;
 
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -9,9 +10,6 @@ import org.springframework.data.repository.query.Param;
 import dev.mission.entite.Mission;
 
 public interface MissionRepository extends JpaRepository<Mission, Integer> {
-
-    List<Mission> findAllByVille(String libelle);
-
-    @Query("select m from Mission h where m.libelle= :v")
-    List<Mission> listerParLibelle(@Param("v") String libelle);
+	@Query("select m from Mission m where m.date_debut > :d")
+    List<Mission> listerParDate(@Param("d") Date today);
 }

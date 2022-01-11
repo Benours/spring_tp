@@ -1,10 +1,9 @@
-package dev.service;
+package dev.mission.service;
 
 import java.math.BigDecimal;
+import java.sql.Date;
 import java.util.List;
 
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Sort;
 
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -24,17 +23,17 @@ public class MissionServiceDataJpa {
 
     @Transactional
     public void insererMission(String libelle, BigDecimal taux) { // begin
-        Mission Mission = new Mission(libelle, taux);
-        this.MissionRepository.save(Mission);
+        Mission mission = new Mission(libelle, taux);
+        this.MissionRepository.save(mission);
     }
 
     public List<Mission> listerMissions() {
-        PageRequest pageRequest = PageRequest.of(1, 2, Sort.by("libelle"));
-        return this.MissionRepository.findAll(pageRequest).toList();
+        return this.MissionRepository.findAll();
     }
+    
 
-    public List<Mission> rechercherParVille(String ville) {
-        return this.MissionRepository.listerParLibelle(ville);
+    public List<Mission> rechercherParDate(Date today) {
+        return this.MissionRepository.listerParDate(today);
     }
 
 }
