@@ -22,9 +22,9 @@ public class ProfilRemuneration {
 	private String code;
 
 	@ManyToMany
-	@JoinTable(name = "profil_remuneration_cotisation",
-	joinColumns = @JoinColumn(name = "ID_PRO", referencedColumnName = "ID"),
-	inverseJoinColumns = @JoinColumn(name = "ID_COT", referencedColumnName = "ID"))
+	@JoinTable(name = "profil_remuneration_cotisations",
+	joinColumns = @JoinColumn(name = "profil_remuneration_id", referencedColumnName = "ID"),
+	inverseJoinColumns = @JoinColumn(name = "cotisations_id", referencedColumnName = "ID"))
 	private List<Cotisation> cotisations;
 
 	@OneToMany(mappedBy = "profilRemuneration")

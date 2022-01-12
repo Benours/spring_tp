@@ -6,6 +6,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
@@ -22,7 +23,7 @@ public class Avantage {
 	private BigDecimal montant;
 
 	@ManyToOne
-	@JoinTable(name = "ID_PRO")
+	@JoinColumn(name = "profil_remuneration_id")
 	private ProfilRemuneration profilRemuneration;
 	
 	public String getCode() {
