@@ -29,7 +29,7 @@ public class MissionServiceDataJpa {
         return this.MissionRepository.listerParDate(today);
     }
     
-    public List<Mission> rechercherParTaux(LocalDate today, float taux) {
+    public List<Mission> rechercherParTaux(LocalDate today, BigDecimal taux) {
         return this.MissionRepository.listerParTaux(today, taux);
     }
 

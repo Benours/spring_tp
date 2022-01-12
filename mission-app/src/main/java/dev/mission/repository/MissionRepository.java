@@ -16,5 +16,5 @@ public interface MissionRepository extends JpaRepository<Mission, Integer> {
     List<Mission> listerParDate(@Param("d") LocalDate today);
 	
 	@Query("select m from Mission m where m.dateDebut > :d and m.tauxJournalier >= :t")
-    List<Mission> listerParTaux(@Param("d") LocalDate today, @Param("t") float taux);
+    List<Mission> listerParTaux(@Param("d") LocalDate today, @Param("t") BigDecimal taux);
 }

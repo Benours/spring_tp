@@ -15,7 +15,6 @@ public class ListerProchainesMissionsParTJM implements CommandLineRunner{
 
 
 	private MissionServiceDataJpa missionService;
-	private float taux = 10f;
 
 	public ListerProchainesMissionsParTJM(MissionServiceDataJpa missionService) {
 		this.missionService = missionService;
@@ -26,7 +25,7 @@ public class ListerProchainesMissionsParTJM implements CommandLineRunner{
 		// TODO Auto-generated method stub
 
 		System.out.println("----------");
-		this.missionService.rechercherParTaux(LocalDate.now(), taux).forEach(m -> System.out.println(m.getLibelle()));
+		this.missionService.rechercherParTaux(LocalDate.now(), BigDecimal.TEN).forEach(m -> System.out.println(m.getLibelle()));
 		System.out.println("----------");
 	}
 
