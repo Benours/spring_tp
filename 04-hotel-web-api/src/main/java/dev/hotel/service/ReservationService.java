@@ -17,8 +17,9 @@ public class ReservationService {
 		this.reservationRepository = reservationRepository;
 	}
 
-	public Reservation insererReservation() {
-		// TODO Auto-generated method stub
-		return null;
+	public Reservation insererReservation(Reservation reservation) {
+		
+		this.reservationRepository.save(reservation);
+		return reservation;
 	}
 }
