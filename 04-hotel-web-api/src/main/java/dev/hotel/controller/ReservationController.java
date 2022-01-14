@@ -39,17 +39,29 @@ public class ReservationController {
 	public ResponseEntity<?> doReservation(@RequestBody ReservationJson reservationJson) {
 		Reservation reservation = new Reservation();
 
+		if (this.clientsService.recupClient(reservationJson.getNumeroClient()) == null)
+			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("numéro client " + reservationJson.getNumeroClient() + " non trouvé");
+		else {
+			reservation.setClient(this.clientsService.recupClient(reservationJson.getNumeroClient()));
+		}
+		
 		List<Chambre> listChambre = new ArrayList<Chambre>();
+		List<String> listErreur = new ArrayList<String>();
+		boolean check = false;
 		
 //		reservationJson.getChambres().forEach(c -> listChambre.add(this.chambreService.recupChambre(c)));
 		
 		for (String string : reservationJson.getChambres()) {
-			if (this.chambreService.recupChambre(string) == null)
-				return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("la chambre " + string + " n'existe pas");
+			if (this.chambreService.recupChambre(string) == null) {
+				listErreur.add("la chambre " + string + " n'existe pas");
+				check = true;
+			}
 			else {
 				listChambre.add(this.chambreService.recupChambre(string));
 			}
 		}
+		if (check)
+			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(listErreur);
 		
 		reservation.setChambres(listChambre);
 		
@@ -57,11 +69,6 @@ public class ReservationController {
 		
 		reservation.setDateFin(reservationJson.getDateFin());
 		
-		if (this.clientsService.recupClient(reservationJson.getNumeroClient()) == null)
-			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("numéro client " + reservationJson.getNumeroClient() + " non trouvé");
-		else {
-			reservation.setClient(this.clientsService.recupClient(reservationJson.getNumeroClient()));
-		}
 				
 		return ResponseEntity.ok()
 				.body(this.reservationService.insererReservation(reservation));
