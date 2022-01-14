@@ -1,5 +1,6 @@
 package dev.hotel.service;
 
+import java.time.LocalDate;
 import java.util.List;
 
 import javax.transaction.Transactional;
@@ -25,7 +26,7 @@ public class ClientsService {
 	@Transactional
     public Client insererClient(String nom, String prenoms) { // begin
         Client client = new Client(nom, prenoms);
-        client.setNumero("C100" + (int) Math.floor(Math.random() * 99999));
+        client.setNumero("C" + LocalDate.now().getYear() + (int) Math.floor(Math.random() * 99999));
         this.clientsRepository.save(client);
         return client;
     }

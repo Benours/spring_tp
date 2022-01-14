@@ -41,7 +41,15 @@ public class ReservationController {
 
 		List<Chambre> listChambre = new ArrayList<Chambre>();
 		
-		reservationJson.getChambres().forEach(c -> listChambre.add(this.chambreService.recupChambre(c)));
+//		reservationJson.getChambres().forEach(c -> listChambre.add(this.chambreService.recupChambre(c)));
+		
+		for (String string : reservationJson.getChambres()) {
+			if (this.chambreService.recupChambre(string) == null)
+				return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("la chambre " + string + " n'existe pas");
+			else {
+				listChambre.add(this.chambreService.recupChambre(string));
+			}
+		}
 		
 		reservation.setChambres(listChambre);
 		
@@ -49,8 +57,12 @@ public class ReservationController {
 		
 		reservation.setDateFin(reservationJson.getDateFin());
 		
-		reservation.setClient(this.clientsService.recupClient(reservationJson.getNumeroClient()));
-		
+		if (this.clientsService.recupClient(reservationJson.getNumeroClient()) == null)
+			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("numéro client " + reservationJson.getNumeroClient() + " non trouvé");
+		else {
+			reservation.setClient(this.clientsService.recupClient(reservationJson.getNumeroClient()));
+		}
+				
 		return ResponseEntity.ok()
 				.body(this.reservationService.insererReservation(reservation));
 	}

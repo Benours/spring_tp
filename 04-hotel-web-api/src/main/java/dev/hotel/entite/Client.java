@@ -2,16 +2,22 @@ package dev.hotel.entite;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.validation.constraints.Size;
+
+import org.springframework.validation.annotation.Validated;
 
 @Entity
+@Validated
 public class Client extends BaseEntite {
 
 
     @Column(unique = true, nullable = false)
     private String numero;
 
+    @Size(min = 5)
     private String nom;
 
+    @Size(min = 5)
     private String prenoms;
 
     public Client() {
